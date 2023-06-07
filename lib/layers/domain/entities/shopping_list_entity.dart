@@ -24,6 +24,15 @@ class ShoppingListEntity extends Entity {
   }
 
   factory ShoppingListEntity.fromMap(Map<String, dynamic> json) {
+    if (json['id'] == null) {
+      throw ArgumentError('The "id" field is required.');
+    }
+    if (json['name'] == null) {
+      throw ArgumentError('The "name" field is required.');
+    }
+    if (json['createdAt'] == null) {
+      throw ArgumentError('The "createdAt" field is required.');
+    }
     return ShoppingListEntity(
       id: json['id'],
       name: json['name'],

@@ -77,6 +77,7 @@ class ShoppingListItemDataSourceRemote implements ShoppingListItemsDataSource {
 
       return const Success(true);
     } catch (e) {
+      print(e);
       return Failure(ShoppingListItemsDataSourceError('error: $e'));
     }
   }

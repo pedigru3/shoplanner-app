@@ -42,9 +42,8 @@ class ShoppingListDataSourceRemote implements ShoppingListDataSource {
   @override
   AsyncResult<ShoppingListEntity, ShoppingListException> fetchById(
       String id) async {
-    final response = await http.get('/shopping-list/$id');
-
     try {
+      final response = await http.get('/shopping-list/$id');
       final shoppingList = ShoppingListEntity.fromMap(json.decode(response));
       return Success(shoppingList);
     } catch (error) {

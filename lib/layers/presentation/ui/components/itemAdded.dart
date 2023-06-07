@@ -26,7 +26,7 @@ class _ItemAddedState extends State<ItemAdded> {
   final shoppingListItemController = GetIt.I.get<ShoppingListItemController>();
 
   final priceController = TextEditingController();
-  final qunatityController = TextEditingController();
+  final quantityController = TextEditingController();
   final nameController = TextEditingController();
 
   @override
@@ -35,7 +35,7 @@ class _ItemAddedState extends State<ItemAdded> {
     nameController.text = widget.shoppingListItem.item.name;
     priceController.text =
         widget.shoppingListItem.currentPrice.value.toStringAsFixed(2);
-    qunatityController.text = widget.shoppingListItem.quantity.toString();
+    quantityController.text = widget.shoppingListItem.quantity.toString();
   }
 
   @override
@@ -50,8 +50,12 @@ class _ItemAddedState extends State<ItemAdded> {
               flex: 2,
               child: Input(
                 hasSuggestions: true,
-                onChanged: (value) async => await shoppingListItemController
-                    .update(id: widget.shoppingListItem.id, name: value),
+                onChanged: () async {
+                  await shoppingListItemController.update(
+                      id: widget.shoppingListItem.id,
+                      name: nameController.text);
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
                 hintText: 'Nome do item',
                 controller: nameController,
               ),
@@ -62,8 +66,12 @@ class _ItemAddedState extends State<ItemAdded> {
             Flexible(
               flex: 1,
               child: Input(
-                onChanged: (value) async => await shoppingListItemController
-                    .update(id: widget.shoppingListItem.id, price: value),
+                onChanged: () async {
+                  await shoppingListItemController.update(
+                      id: widget.shoppingListItem.id,
+                      price: priceController.text);
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
                 hintText: 'Preço',
                 controller: priceController,
               ),
@@ -74,10 +82,14 @@ class _ItemAddedState extends State<ItemAdded> {
             Flexible(
               flex: 1,
               child: Input(
-                onChanged: (value) => shoppingListItemController.update(
-                    id: widget.shoppingListItem.id, quantity: value),
+                onChanged: () async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  await shoppingListItemController.update(
+                      id: widget.shoppingListItem.id,
+                      quantity: quantityController.text);
+                },
                 hintText: 'Qnt.',
-                controller: qunatityController,
+                controller: quantityController,
               ),
             ),
           ],

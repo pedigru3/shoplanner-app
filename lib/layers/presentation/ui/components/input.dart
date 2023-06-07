@@ -15,7 +15,7 @@ class Input extends StatelessWidget {
       this.hasSuggestions = false});
   final String? hintText;
   final void Function(String)? onSubmitted;
-  final void Function(String)? onChanged;
+  final void Function()? onChanged;
   final TextEditingController? controller;
   final bool hasSuggestions;
 
@@ -56,7 +56,7 @@ class Input extends StatelessWidget {
             onSaved: (value) => {},
           )
         : TextField(
-            onChanged: onChanged,
+            onEditingComplete: onChanged,
             controller: controller,
             onSubmitted: onSubmitted,
             decoration: InputDecoration(
