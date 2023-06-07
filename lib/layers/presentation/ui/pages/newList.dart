@@ -161,7 +161,7 @@ class _NewListState extends State<NewList> {
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(bottom: -20),
                             border: InputBorder.none,
-                            hintText: 'Big Supermercados',
+                            hintText: 'Nome da sua lista',
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!

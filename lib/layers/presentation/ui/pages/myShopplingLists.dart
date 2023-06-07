@@ -26,12 +26,14 @@ class MyShoppinglists extends StatelessWidget {
               text2: 'Compras',
             ),
             const SizedBox(height: 20),
-            Expanded(child: const ShoppingLists()),
+            const Expanded(
+              child: ShoppingLists(),
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: width * 0.65,
                     child: TextField(
                       controller: textController,
@@ -59,6 +61,8 @@ class MyShoppinglists extends StatelessWidget {
                       ),
                       onPressed: () async {
                         if (textController.text != '') {
+                          FocusManager.instance.primaryFocus?.unfocus();
+
                           await shoopingListController
                               .create(textController.text);
                         } else {

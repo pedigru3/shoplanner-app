@@ -16,6 +16,16 @@ class _ShoppingListsState extends State<ShoppingLists> {
   final navigatorController = GetIt.I.get<NavigatorController>();
 
   @override
+  void initState() {
+    super.initState();
+    shoppingListController.addListener(_onShoppingListChange);
+  }
+
+  _onShoppingListChange() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: shoppingListController.findAll(),
@@ -104,5 +114,11 @@ class _ShoppingListsState extends State<ShoppingLists> {
         return const Text('erro');
       },
     );
+  }
+
+  @override
+  void dispose() {
+    shoppingListController.removeListener(_onShoppingListChange);
+    super.dispose();
   }
 }
