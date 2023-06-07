@@ -31,16 +31,38 @@ class _ShoppingListsState extends State<ShoppingLists> {
       future: shoppingListController.findAll(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: ListView(
-                children: [
-                  SkeletonLine(
-                    style: SkeletonLineStyle(
-                        height: 100, borderRadius: BorderRadius.circular(20)),
-                  ),
-                ],
-              ));
+          return ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SkeletonLine(
+                  style: SkeletonLineStyle(
+                      height: 100, borderRadius: BorderRadius.circular(20)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SkeletonLine(
+                  style: SkeletonLineStyle(
+                      height: 100, borderRadius: BorderRadius.circular(20)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SkeletonLine(
+                  style: SkeletonLineStyle(
+                      height: 100, borderRadius: BorderRadius.circular(20)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SkeletonLine(
+                  style: SkeletonLineStyle(
+                      height: 100, borderRadius: BorderRadius.circular(20)),
+                ),
+              ),
+            ],
+          );
         }
         if (snapshot.hasData) {
           final shoppingLists = snapshot.data!;

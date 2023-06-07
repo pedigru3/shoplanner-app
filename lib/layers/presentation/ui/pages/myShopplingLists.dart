@@ -16,7 +16,7 @@ class MyShoppinglists extends StatelessWidget {
 
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(32, 32, 32, 0),
+        padding: const EdgeInsets.fromLTRB(32, 32, 32, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +62,6 @@ class MyShoppinglists extends StatelessWidget {
                       onPressed: () async {
                         if (textController.text != '') {
                           FocusManager.instance.primaryFocus?.unfocus();
-
                           await shoopingListController
                               .create(textController.text);
                         } else {

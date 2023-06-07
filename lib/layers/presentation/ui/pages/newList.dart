@@ -151,10 +151,10 @@ class _NewListState extends State<NewList> {
                 padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
                 child: mylist != null
                     ? TextField(
-                        onEditingComplete: () {
-                          shoopingListController.update(
-                              mylist.id, nameOfListController.text);
+                        onEditingComplete: () async {
                           FocusManager.instance.primaryFocus?.unfocus();
+                          await shoopingListController.update(
+                              mylist.id, nameOfListController.text);
                         },
                         controller: nameOfListController,
                         style: Theme.of(context).textTheme.headlineMedium,

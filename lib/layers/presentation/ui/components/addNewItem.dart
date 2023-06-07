@@ -74,6 +74,7 @@ class _AddNewItemState extends State<AddNewItem> {
                   child: Input(
                     hintText: 'Nome do item',
                     controller: nameController,
+                    hasSuggestions: true,
                   ),
                 ),
                 const SizedBox(
