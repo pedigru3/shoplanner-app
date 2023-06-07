@@ -27,4 +27,9 @@ class ShoppingListController extends ChangeNotifier {
     await shoppingListItemUsecase.create(name);
     notifyListeners();
   }
+
+  delete(String id) async {
+    await shoppingListItemUsecase.delete(id);
+    notifyListeners();
+  }
 }
