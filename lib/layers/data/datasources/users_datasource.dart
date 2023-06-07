@@ -1,8 +1,10 @@
-import 'package:shoplanner/layers/data/dtos/user_dto.dart';
+import 'package:result_dart/result_dart.dart';
+import 'package:shoplanner/layers/domain/entities/user_entity.dart';
+import 'package:shoplanner/layers/domain/errors/user_exception.dart';
 
 abstract class UsersDataSource {
-  Future<List<UserDto>> fetchAll();
-  Future<bool> create(UserDto user);
-  Future<bool> update(UserDto user);
-  Future<bool> delete(UserDto user);
+  AsyncResult<List<UserEntity>, UserException> fetchAll();
+  AsyncResult<UserEntity, UserException> create(UserEntity user);
+  Future<bool> update(UserEntity user);
+  Future<bool> delete(UserEntity user);
 }

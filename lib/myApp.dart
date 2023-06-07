@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoplanner/view/pages/initialPage.dart';
+import 'package:shoplanner/layers/presentation/ui/pages/initialPage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -15,18 +15,18 @@ class MyApp extends StatelessWidget {
       title: 'Shoplanner',
       theme: ThemeData(
         textTheme: TextTheme(
-          headline1: TextStyle(
+          headlineLarge: TextStyle(
               fontSize: 32, color: Color(primary), fontWeight: FontWeight.bold),
-          bodyText1: TextStyle(
+          headlineMedium: TextStyle(
+            color: Color(primary),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyLarge: TextStyle(
             fontSize: 17,
             height: 1.3,
             fontWeight: FontWeight.w400,
             color: Color(secondary),
-          ),
-          headline2: TextStyle(
-            color: Color(primary),
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
           ),
         ),
         primarySwatch: Colors.red,

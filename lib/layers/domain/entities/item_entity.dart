@@ -8,31 +8,57 @@ class ItemEntity extends Entity {
     super.createdAt,
     required String name,
     required this.category,
-    this.pricesEntity,
+    required this.prices,
   }) {
     this.name = name;
-    pricesEntity ??= [];
+  }
+
+  factory ItemEntity.fromMap(Map<String, dynamic> json) {
+    if (json['prices'] == null) {}
+    return ItemEntity(
+      id: json['id'],
+      name: json['name'],
+      category: categoryFromString(json['category']),
+      createdAt: DateTime.parse(json['createdAt']),
+      prices: json['prices'] != null
+          ? json['prices']
+              .map<PriceEntity>((price) => PriceEntity.fromMap(price))
+              .toList()
+          : [],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'category': category,
+      'prices': prices.map((price) => price.toMap()).toList(),
+      'createdAt': createdAt.toIso8601String(),
+      'id': id,
+    };
   }
 
   Category category;
 
   late String _name;
-  List<PriceEntity>? pricesEntity;
+  List<PriceEntity> prices;
 
   String get name => _name.capitalize();
   set name(String name) => _name = name.toUpperCase();
 
-  set setPrice(double value) {
-    final newPrice = PriceEntity(value: value);
-    pricesEntity!.add(newPrice);
+  //get last price in pricesEntity
+  double get lastPrice {
+    if (prices.isEmpty) {
+      return 0;
+    } else {
+      return prices.last.value;
+    }
   }
 
   comparePrices() {
-    if (pricesEntity == null) {
-      return '';
-    } else if (pricesEntity != null && pricesEntity!.length >= 2) {
-      final diff = pricesEntity![pricesEntity!.length - 1].value -
-          pricesEntity![pricesEntity!.length - 2].value;
+    if (prices.length >= 2) {
+      final diff =
+          prices[prices.length - 1].value - prices[prices.length - 2].value;
       if (diff > 0) {
         return 'Este item está R\$ ${diff.toStringAsFixed(2)} mais caro';
       } else if (diff < 0) {

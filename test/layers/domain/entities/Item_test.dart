@@ -9,21 +9,21 @@ void main() {
       final item = ItemEntity(
           category: Category.Alimentos,
           name: 'Macarrão',
-          pricesEntity: [PriceEntity(value: 2.2), PriceEntity(value: 3.1)]);
+          prices: [PriceEntity(value: 2.2), PriceEntity(value: 3.1)]);
       expect(item.comparePrices(), 'Este item está R\$ 0.90 mais caro');
     });
     test('quando o valor está mais barato', () {
       final item = ItemEntity(
           category: Category.Alimentos,
           name: 'Macarrão',
-          pricesEntity: [PriceEntity(value: 3.1), PriceEntity(value: 2.2)]);
+          prices: [PriceEntity(value: 3.1), PriceEntity(value: 2.2)]);
       expect(item.comparePrices(), 'Este item está R\$ 0.90 mais barato');
     });
     test('quando o valor está igual', () {
       final item = ItemEntity(
           category: Category.Alimentos,
           name: 'Macarrão',
-          pricesEntity: [PriceEntity(value: 3.1), PriceEntity(value: 3.1)]);
+          prices: [PriceEntity(value: 3.1), PriceEntity(value: 3.1)]);
       expect(item.comparePrices(), 'Este item manteve o último preço');
     });
   });

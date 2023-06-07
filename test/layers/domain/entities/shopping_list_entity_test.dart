@@ -3,7 +3,7 @@ import 'package:shoplanner/layers/domain/entities/shopping_list_entity.dart';
 
 void main() {
   test('deve retornar nome do supermercado', () {
-    ShoppingListEntity shop = ShoppingListEntity(marketName: 'Mufato');
-    expect(shop.marketName, 'Mufato');
+    ShoppingListEntity shop = ShoppingListEntity(name: 'Mufato');
+    expect(shop.name, 'Mufato');
   });
 }

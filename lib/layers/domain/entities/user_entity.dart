@@ -7,9 +7,17 @@ class UserEntity extends Entity {
       super.id,
       this.image,
       required this.name,
-      this.shoppingListsEntity});
-
+      this.shoppingLists});
   String name;
   String? image;
-  List<ShoppingListEntity>? shoppingListsEntity;
+  List<ShoppingListEntity>? shoppingLists;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'image': image,
+      'id': id,
+      'created_at': createdAt.toIso8601String(),
+    };
+  }
 }
