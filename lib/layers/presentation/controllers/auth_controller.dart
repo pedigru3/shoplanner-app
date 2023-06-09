@@ -25,7 +25,7 @@ class AuthController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String? salvedToken = prefs.getString('token');
-    print({'token': salvedToken});
+
     if (salvedToken != null) {
       //verifica se o token ainda é válido
       final hasExpired = JwtDecoder.isExpired(salvedToken);
@@ -33,8 +33,11 @@ class AuthController {
         await prefs.remove('token');
         return false;
       }
+
       Map<String, dynamic> decodedToken = JwtDecoder.decode(salvedToken);
+
       token = TokenEntity.fromMap(decodedToken);
+
       return !hasExpired;
     }
 

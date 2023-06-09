@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get_it/get_it.dart';
 import 'package:result_dart/result_dart.dart';
@@ -12,12 +13,16 @@ class Input extends StatelessWidget {
       this.onSubmitted,
       this.onChanged,
       this.controller,
-      this.hasSuggestions = false});
+      this.hasSuggestions = false,
+      this.inputFormatters,
+      this.keyboardType = TextInputType.text});
   final String? hintText;
   final void Function(String)? onSubmitted;
   final void Function()? onChanged;
   final TextEditingController? controller;
   final bool hasSuggestions;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,7 @@ class Input extends StatelessWidget {
     return hasSuggestions
         ? TypeAheadFormField<ItemEntity>(
             textFieldConfiguration: TextFieldConfiguration(
+              keyboardType: keyboardType,
               controller: controller,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(left: 20),
@@ -56,6 +62,7 @@ class Input extends StatelessWidget {
             onSaved: (value) => {},
           )
         : TextField(
+            inputFormatters: inputFormatters,
             onEditingComplete: onChanged,
             controller: controller,
             onSubmitted: onSubmitted,

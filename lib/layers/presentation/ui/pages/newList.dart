@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get_it/get_it.dart';
 import 'package:result_dart/result_dart.dart';
+import 'package:shoplanner/layers/data/services/currency_ptbr_input_formatter.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_entity.dart';
 import 'package:shoplanner/layers/domain/errors/shopping_list_exception.dart';
 import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
@@ -119,7 +120,7 @@ class _NewListState extends State<NewList> {
                                       // com bold
                                       TextSpan(
                                         text:
-                                            'R\$: ${mylist.getTotal().toStringAsFixed(2)}',
+                                            'R\$: ${TextFormatter.priceFormat(mylist.getTotal())}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge!

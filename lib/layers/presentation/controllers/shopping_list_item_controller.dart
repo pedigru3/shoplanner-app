@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:shoplanner/consts/enumCategories.dart';
+import 'package:shoplanner/layers/data/services/currency_ptbr_input_formatter.dart';
 import 'package:shoplanner/layers/domain/entities/item_entity.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_item_entity.dart';
 import 'package:shoplanner/layers/domain/errors/shopping_list_item_exception.dart';
@@ -64,8 +65,8 @@ class ShoppingListItemController extends ChangeNotifier {
     var result = await shoppingListItemUsecase.update(
       id: id,
       item: item,
-      quantity: quantity != null ? double.tryParse(quantity) : null,
-      price: price != null ? double.parse(price) : null,
+      quantity: quantity != null ? TextFormatter.cleanText(quantity) : null,
+      price: price != null ? TextFormatter.cleanText(price) : null,
     );
     notifyListeners();
     return result;

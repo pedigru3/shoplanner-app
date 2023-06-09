@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shoplanner/consts/enumCategories.dart';
+import 'package:shoplanner/layers/data/services/currency_ptbr_input_formatter.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_item_entity.dart';
 
 import '../../controllers/shopping_list_item_controller.dart';
@@ -34,8 +36,9 @@ class _ItemAddedState extends State<ItemAdded> {
     super.initState();
     nameController.text = widget.shoppingListItem.item.name;
     priceController.text =
-        widget.shoppingListItem.currentPrice.value.toStringAsFixed(2);
-    quantityController.text = widget.shoppingListItem.quantity.toString();
+        TextFormatter.priceFormat(widget.shoppingListItem.currentPrice.value);
+    quantityController.text =
+        TextFormatter.quantityFormat(widget.shoppingListItem.quantity);
   }
 
   @override
@@ -66,6 +69,11 @@ class _ItemAddedState extends State<ItemAdded> {
             Flexible(
               flex: 1,
               child: Input(
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  CurrencyPtBrInputFormatter(),
+                ],
                 onChanged: () async {
                   await shoppingListItemController.update(
                       id: widget.shoppingListItem.id,
@@ -82,6 +90,8 @@ class _ItemAddedState extends State<ItemAdded> {
             Flexible(
               flex: 1,
               child: Input(
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: () async {
                   FocusManager.instance.primaryFocus?.unfocus();
                   await shoppingListItemController.update(
