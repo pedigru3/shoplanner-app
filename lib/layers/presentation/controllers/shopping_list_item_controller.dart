@@ -41,8 +41,8 @@ class ShoppingListItemController extends ChangeNotifier {
     }
     var result = await shoppingListItemUsecase.create(
       name: name,
-      quantity: double.tryParse(quantity) ?? 0,
-      price: double.tryParse(price) ?? 0,
+      quantity: TextFormatter.cleanText(quantity),
+      price: TextFormatter.cleanText(price),
       category: category,
       shoppingListId: shoppingListId,
     );

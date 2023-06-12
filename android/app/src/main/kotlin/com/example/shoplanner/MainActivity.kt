@@ -1,4 +1,4 @@
-package com.example.shoplanner
+package br.felipe.shoplanner
 
 import io.flutter.embedding.android.FlutterActivity
 

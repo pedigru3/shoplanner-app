@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplanner/consts/variables.dart';
@@ -14,16 +15,15 @@ import 'dart:convert';
 class AuthController {
   static final AuthController _instance = AuthController._internal();
   static UserEntity? _user;
+  static bool isAuthenticated = false;
   static late TokenEntity token;
 
   factory AuthController() {
     return _instance;
   }
 
-  Future<bool> login() async {
-    // Verifica se já tem o token antes de prosseguir
+  static initialWithMainToTryAuthenticate() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final String? salvedToken = prefs.getString('token');
 
     if (salvedToken != null) {
@@ -37,8 +37,16 @@ class AuthController {
       Map<String, dynamic> decodedToken = JwtDecoder.decode(salvedToken);
 
       token = TokenEntity.fromMap(decodedToken);
+      isAuthenticated = !hasExpired;
+    }
+  }
 
-      return !hasExpired;
+  Future<bool> login() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Verifica se já tem o token antes de prosseguir
+    if (isAuthenticated) {
+      return isAuthenticated;
     }
 
     // Inicia servidor, caso o token não exista ou não seja válido
@@ -49,6 +57,7 @@ class AuthController {
 
     final request = await server.first;
     final code = request.uri.queryParameters['code'];
+    debugPrint('code: $code');
 
     // Responda com uma mensagem simples para indicar que a URL de retorno foi capturada
     request.response.write(
@@ -60,6 +69,7 @@ class AuthController {
 
     if (code != null) {
       //realize a requisição
+
       final urlServerAuth = '${Variables.baseUrl}/register';
       final body = json.encode({'code': code});
       final response = await http.post(Uri.parse(urlServerAuth),
@@ -72,10 +82,11 @@ class AuthController {
         final hasExpired = JwtDecoder.isExpired(newToken);
         Map<String, dynamic> decodedToken = JwtDecoder.decode(newToken);
         token = TokenEntity.fromMap(decodedToken);
+        isAuthenticated = !hasExpired;
         return !hasExpired;
-      } else
-        print('algo deu errado');
-      return false;
+      } else {
+        return false;
+      }
     }
     return false;
   }
@@ -84,10 +95,10 @@ class AuthController {
     final authUrl = Uri.parse(
         'https:/github.com/login/oauth/authorize?client_id=${dotenv.env['GITHUB_CLIENT_ID']}&scope=escopos&redirect_uri=http://localhost:3000/api/auth/callback');
     if (await canLaunchUrl(authUrl)) {
-      await launchUrl(authUrl,
-          mode: LaunchMode.inAppWebView,
-          webViewConfiguration:
-              const WebViewConfiguration(enableDomStorage: false));
+      await launchUrl(
+        authUrl,
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       throw 'Could not lauch $authUrl';
     }

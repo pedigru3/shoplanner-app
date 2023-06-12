@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
 import 'package:shoplanner/layers/presentation/ui/components/button.dart';
-import 'package:shoplanner/layers/presentation/ui/pages/namePage.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/startPage.dart';
 
 class InitialPage2 extends StatelessWidget {
@@ -25,15 +24,6 @@ class InitialPage2 extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            Button(
-                onPressed: () => {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const NamePage(),
-                        ),
-                      ),
-                    },
-                label: 'Criar uma nova conta'),
             const SizedBox(height: 16),
             Button(
                 /*onPressed: () => {

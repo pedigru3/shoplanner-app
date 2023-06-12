@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/ui/pages/homePage.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/initialPage2.dart';
 
 import 'namePage.dart';
@@ -47,9 +49,11 @@ class InitialPage extends StatelessWidget {
                   width: 56,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () => {
+                    onPressed: () async => {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InitialPage2()))
+                          builder: (context) => AuthController.isAuthenticated
+                              ? const MyHomePage()
+                              : const InitialPage2()))
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
