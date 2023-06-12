@@ -26,26 +26,20 @@ class InitialPage2 extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Button(
-                /*onPressed: () => {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const Login(),
-                        ),
-                      ),
-                    },*/
-                onPressed: () {
-                  auth.login().then((isAuthorized) => {
-                        if (isAuthorized)
-                          {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const StartPage(),
-                              ),
-                            )
-                          }
-                      });
-                },
-                label: 'Entrar com Github'),
+              onPressed: () {
+                auth.login().then((isAuthorized) => {
+                      if (isAuthorized)
+                        {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const StartPage(),
+                            ),
+                          )
+                        }
+                    });
+              },
+              label: 'Entrar com Github',
+            ),
           ],
         ),
       ),

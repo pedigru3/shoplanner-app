@@ -3,8 +3,6 @@ import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart'
 import 'package:shoplanner/layers/presentation/ui/pages/homePage.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/initialPage2.dart';
 
-import 'namePage.dart';
-
 class InitialPage extends StatelessWidget {
   const InitialPage({super.key});
 
