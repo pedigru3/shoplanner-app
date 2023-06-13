@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/homePage.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/initialPage2.dart';
@@ -8,6 +9,8 @@ class InitialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = GetIt.I.get<AuthController>();
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -49,7 +52,7 @@ class InitialPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async => {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AuthController.isAuthenticated
+                          builder: (context) => authController.isAuthenticated
                               ? const MyHomePage()
                               : const InitialPage2()))
                     },

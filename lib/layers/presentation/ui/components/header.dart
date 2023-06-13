@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/ui/components/perfil_avatar.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key, required this.text1, required this.text2});
@@ -9,6 +11,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double height = 80;
+    final authController = GetIt.I.get<AuthController>();
 
     return SizedBox(
       height: height,
@@ -34,11 +37,7 @@ class Header extends StatelessWidget {
               ],
             ),
           ),
-          CircleAvatar(
-            backgroundImage: NetworkImage(AuthController.token.avatarUrl),
-            radius: 32,
-            backgroundColor: Colors.red,
-          )
+          PerfilAvatar(url: authController.token.avatarUrl)
         ],
       ),
     );

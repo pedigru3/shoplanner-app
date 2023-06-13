@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "590619170189",
+    "project_id": "shoplanner-14829",
+    "storage_bucket": "shoplanner-14829.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590619170189:android:ae929f2ec332e8230e59c4",
+        "android_client_info": {
+          "package_name": "br.felipe.shoplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590619170189-rdbo19cakbijs7supt0h9nad96ik6389.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.felipe.shoplanner",
+            "certificate_hash": "f53fce6f19a32bc7d0781e40ec9e79266d03bd1a"
+          }
+        },
+        {
+          "client_id": "590619170189-trhdp7d5ipnjt3dorcdkvpllf1keagla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvb566TcVbjobf31b2s6WxsRvDFRzVgFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590619170189-8pl8lpalij26ephvsoes7jlpvucj3p8m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "590619170189-a15ksf0a8ntlq4rjm0mjp3n2965apm1i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.felipe.shoplanner"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

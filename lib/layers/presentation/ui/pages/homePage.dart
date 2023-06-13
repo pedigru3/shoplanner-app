@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/navigator_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/user_controller.dart';
+import 'package:shoplanner/layers/presentation/ui/components/perfil_avatar.dart';
+import 'package:shoplanner/layers/presentation/ui/pages/initialPage.dart';
 
 import '../components/customNavigationBar.dart';
 import '../components/customNavigationBarItem.dart';
@@ -20,8 +23,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final userController = GetIt.I.get<UserController>();
   final navigatorController = GetIt.I.get<NavigatorController>();
-
   final nameController = TextEditingController();
+  final authController = GetIt.I.get<AuthController>();
 
   late PageController pc;
 
@@ -47,6 +50,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return ScaffoldMessenger(
       key: userController.scaffoldKey,
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                  accountEmail: GestureDetector(
+                    onTap: () async {
+                      authController.logOut().then(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const InitialPage(),
+                              ),
+                            ),
+                          );
+                    },
+                    child: const Text('Sair'),
+                  ),
+                  accountName: Text(authController.token.name),
+                  currentAccountPicture: PerfilAvatar(
+                    url: authController.token.avatarUrl,
+                  )),
+            ],
+          ),
+        ),
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: pc,

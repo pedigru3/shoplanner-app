@@ -2,9 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/shopping_list_controller.dart';
 
 class NavigatorController extends ChangeNotifier {
+  final authController = GetIt.I.get<AuthController>();
+
   NavigatorController() {
     pc = PageController(initialPage: selectedIndex);
     initial();
@@ -17,7 +20,8 @@ class NavigatorController extends ChangeNotifier {
 
   initial() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? savedId = prefs.getString('shoppingListId');
+    final String? savedId =
+        prefs.getString('shoppingListId_${authController.token.sub}');
     if (savedId != null) {
       shoppingListId = savedId;
       notifyListeners();
@@ -32,7 +36,7 @@ class NavigatorController extends ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     shoppingListId = id;
-    await prefs.setString('shoppingListId', id);
+    await prefs.setString('shoppingListId_${authController.token.sub}', id);
     notifyListeners();
   }
 

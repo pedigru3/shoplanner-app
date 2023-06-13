@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:shoplanner/layers/domain/entities/user_entity.dart';
 import 'package:shoplanner/layers/domain/entities/validation/name_validation.dart';
@@ -18,10 +19,12 @@ class UserController extends ChangeNotifier {
   final GlobalKey<ScaffoldMessengerState> scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
 
+  final authController = GetIt.I.get<AuthController>();
+
   Validation nameValidation = NameValidation();
 
   setUser(UserEntity user) {
-    AuthController.setUser(user);
+    authController.setUser(user);
     currentUser = Success(user);
     notifyListeners();
   }

@@ -27,6 +27,7 @@ import 'package:shoplanner/layers/domain/usecases/shopping_list_usecase/shopping
 import 'package:shoplanner/layers/domain/usecases/shopping_list_usecase/shopping_list_usecase_imp.dart';
 import 'package:shoplanner/layers/domain/usecases/users_usecase/user_usecase.dart';
 import 'package:shoplanner/layers/domain/usecases/users_usecase/user_usecase_imp.dart';
+import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/navigator_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/shopping_list_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/shopping_list_item_controller.dart';
@@ -88,6 +89,7 @@ class Inject {
     getIt.registerLazySingleton(() => ShoppingListController(getIt()));
     getIt.registerLazySingleton(() => UserController(getIt()));
     getIt.registerLazySingleton(() => ShoppingListItemController(getIt()));
+    getIt.registerSingleton<AuthController>(AuthController());
     getIt.registerLazySingleton(() => NavigatorController());
   }
 }

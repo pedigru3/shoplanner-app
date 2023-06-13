@@ -26,6 +26,7 @@ class NewList extends StatefulWidget {
 class _NewListState extends State<NewList> {
   final shoppingListItemController = GetIt.I.get<ShoppingListItemController>();
   final shoopingListController = GetIt.I.get<ShoppingListController>();
+  final authController = GetIt.I.get<AuthController>();
 
   final nameOfListController = TextEditingController();
 
@@ -97,7 +98,7 @@ class _NewListState extends State<NewList> {
                       children: [
                         SafeArea(
                           child: Header(
-                              text1: 'Olá,', text2: AuthController.token.name),
+                              text1: 'Olá,', text2: authController.token.name),
                         ),
                         const SizedBox(height: 20),
                         Wrap(
