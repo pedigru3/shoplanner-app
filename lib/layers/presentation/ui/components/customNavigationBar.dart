@@ -34,7 +34,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 88.0,
+        height: 80.0,
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.white, boxShadow: [
           BoxShadow(

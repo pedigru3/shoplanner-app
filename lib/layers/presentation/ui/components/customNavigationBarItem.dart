@@ -19,22 +19,26 @@ class CustomNavigationBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Row(
-        children: [
-          Icon(
-            iconData,
-            color: isActive ? Colors.red : Colors.grey,
-          ),
-          const SizedBox(width: 10),
-          AnimatedDefaultTextStyle(
-            style: TextStyle(
-                fontSize: isActive ? 16 : 15,
-                color: isActive ? Colors.red : Colors.grey),
-            child: Text(label),
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOutBack,
-          ),
-        ],
+      child: Container(
+        height: 70,
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Icon(
+              iconData,
+              color: isActive ? Colors.red : Colors.grey,
+            ),
+            const SizedBox(width: 10),
+            AnimatedDefaultTextStyle(
+              style: TextStyle(
+                  fontSize: isActive ? 16 : 15,
+                  color: isActive ? Colors.red : Colors.grey),
+              child: Text(label),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutBack,
+            ),
+          ],
+        ),
       ),
     );
   }
