@@ -2,22 +2,30 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:result_dart/result_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplanner/layers/data/services/provider_auth.dart';
+import 'package:shoplanner/layers/data/services/shared_preferences/get_local_shopping_list_id.dart';
+import 'package:shoplanner/layers/data/services/shared_preferences/save_local_shopping_list_id.dart';
 import 'package:shoplanner/layers/domain/entities/token_entity.dart';
-import 'package:shoplanner/layers/domain/entities/user_entity.dart';
+import 'package:shoplanner/layers/domain/usecases/shopping_list_usecase/shopping_list_usecase.dart';
 
-class AuthController extends ChangeNotifier {
-  UserEntity? _user;
-  bool isAuthenticated = false;
-  late TokenEntity token;
-  bool isLoading = false;
-
-  AuthController() {
-    initialWithMainToTryAuthenticate();
+class SessionManager extends ChangeNotifier {
+  SessionManager(this.shoppingListUseCase) {
+    authInit();
+    getCurrentShoppingListId();
   }
 
-  Future<void> initialWithMainToTryAuthenticate() async {
+  ShoppingListUseCase shoppingListUseCase;
+  final saveLocalShoppingList = SaveLocalShoppingListId();
+
+  bool isAuthenticated = false;
+  bool isLoading = false;
+
+  late TokenEntity token;
+  late String shoppingListId;
+
+  Future<void> authInit() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? salvedToken = prefs.getString('token');
 
@@ -35,6 +43,26 @@ class AuthController extends ChangeNotifier {
       isAuthenticated = !hasExpired;
       notifyListeners();
     }
+  }
+
+  Future<void> getCurrentShoppingListId() async {
+    final getLocalShoppingListId = GetLocalShoppingListId();
+    shoppingListId =
+        await getLocalShoppingListId() ?? await getFirstShoppiListId();
+    saveLocalShoppingList(shoppingListId);
+    notifyListeners();
+  }
+
+  Future<String> getFirstShoppiListId() async {
+    final shoppingLists = await shoppingListUseCase.fetchAll().getOrThrow();
+    return shoppingLists[0].id;
+  }
+
+  ///Use this with fecthCurrentList in ShoppingListItem
+  void setShoppingListId(String value) {
+    saveLocalShoppingList(value);
+    shoppingListId = value;
+    notifyListeners();
   }
 
   Future<bool> login(ProviderAuth providerAuth) async {
@@ -70,13 +98,5 @@ class AuthController extends ChangeNotifier {
     isAuthenticated = false;
     isLoading = false;
     notifyListeners();
-  }
-
-  UserEntity? get user => _user;
-
-  String get userId => _user?.id ?? '';
-
-  void setUser(UserEntity user) {
-    _user = user;
   }
 }

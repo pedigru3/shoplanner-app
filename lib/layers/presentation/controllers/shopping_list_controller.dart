@@ -5,31 +5,40 @@ import 'package:shoplanner/layers/domain/errors/shopping_list_exception.dart';
 import 'package:shoplanner/layers/domain/usecases/shopping_list_usecase/shopping_list_usecase.dart';
 
 class ShoppingListController extends ChangeNotifier {
-  final ShoppingListUseCase shoppingListItemUsecase;
+  final ShoppingListUseCase shoppingListUsecase;
 
-  ShoppingListController(this.shoppingListItemUsecase);
-
-  AsyncResult<ShoppingListEntity, ShoppingListException> findById(
-      String id) async {
-    return await shoppingListItemUsecase.fetchById(id);
+  ShoppingListController(this.shoppingListUsecase) {
+    fetchAllShoppingLists();
   }
 
-  AsyncResult<List<ShoppingListEntity>, ShoppingListException> findAll() async {
-    return await shoppingListItemUsecase.fetchAll();
+  List<ShoppingListEntity> shoppingLists = [];
+  ShoppingListException? error;
+
+  Future<void> fetchAllShoppingLists() async {
+    return await shoppingListUsecase.fetchAll().fold(
+      (success) {
+        shoppingLists = success;
+        notifyListeners();
+      },
+      (error) {
+        this.error = error;
+        notifyListeners();
+      },
+    );
   }
 
-  update(String id, String name) {
-    shoppingListItemUsecase.update(id, name);
+  updateShoppingList(String id, String name) {
+    shoppingListUsecase.update(id, name);
     notifyListeners();
   }
 
-  create(String name) async {
-    await shoppingListItemUsecase.create(name);
+  createShoppingList(String name) async {
+    await shoppingListUsecase.create(name);
     notifyListeners();
   }
 
-  delete(String id) async {
-    await shoppingListItemUsecase.delete(id);
+  deleteShoppingList(String id) async {
+    await shoppingListUsecase.delete(id);
     notifyListeners();
   }
 }

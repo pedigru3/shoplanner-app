@@ -6,7 +6,7 @@ import 'package:shoplanner/layers/domain/entities/validation/name_validation.dar
 import 'package:shoplanner/layers/domain/errors/user_controller_error.dart';
 import 'package:shoplanner/layers/domain/errors/user_exception.dart';
 import 'package:shoplanner/layers/domain/usecases/users_usecase/user_usecase.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 
 import '../../domain/entities/validation/validation.dart';
 
@@ -19,11 +19,11 @@ class UserController extends ChangeNotifier {
   final GlobalKey<ScaffoldMessengerState> scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
 
-  final authController = GetIt.I.get<AuthController>();
+  final authController = GetIt.I.get<SessionManager>();
 
   Validation nameValidation = NameValidation();
 
-  setUser(UserEntity user) {
+  /*setUser(UserEntity user) {
     authController.setUser(user);
     currentUser = Success(user);
     notifyListeners();
@@ -43,7 +43,7 @@ class UserController extends ChangeNotifier {
       notifyListeners();
       return currentUser!;
     });
-  }
+  }*/
 
   AsyncResult<List<UserEntity>, UserException> fetchAll() async {
     final users = await userUseCase.fetchAll();

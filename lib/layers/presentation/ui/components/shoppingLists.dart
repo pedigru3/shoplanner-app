@@ -28,66 +28,56 @@ class _ShoppingListsState extends State<ShoppingLists> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: shoppingListController.findAll(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: SkeletonLine(
-                  style: SkeletonLineStyle(
-                      height: 100, borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: SkeletonLine(
-                  style: SkeletonLineStyle(
-                      height: 100, borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: SkeletonLine(
-                  style: SkeletonLineStyle(
-                      height: 100, borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: SkeletonLine(
-                  style: SkeletonLineStyle(
-                      height: 100, borderRadius: BorderRadius.circular(20)),
-                ),
-              ),
-            ],
+    if (shoppingListController.shoppingLists.isEmpty) {
+      return ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SkeletonLine(
+              style: SkeletonLineStyle(
+                  height: 100, borderRadius: BorderRadius.circular(20)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SkeletonLine(
+              style: SkeletonLineStyle(
+                  height: 100, borderRadius: BorderRadius.circular(20)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SkeletonLine(
+              style: SkeletonLineStyle(
+                  height: 100, borderRadius: BorderRadius.circular(20)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: SkeletonLine(
+              style: SkeletonLineStyle(
+                  height: 100, borderRadius: BorderRadius.circular(20)),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return ListView.builder(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+        ),
+        physics: const BouncingScrollPhysics(),
+        itemCount: shoppingListController.shoppingLists.length,
+        itemBuilder: (context, index) {
+          return SliderShoppingList(
+            onDismissed: (shoppingList) async {
+              await shoppingListController.deleteShoppingList(shoppingList.id);
+            },
+            shoppingList: shoppingListController.shoppingLists[index],
           );
-        }
-        if (snapshot.hasData) {
-          final shoppingLists = snapshot.data!;
-          return shoppingLists.fold(
-              (success) => ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: success.length,
-                    itemBuilder: (context, index) {
-                      return SliderShoppingList(
-                        onDismissed: (shoppingList) async {
-                          await shoppingListController.delete(shoppingList.id);
-                        },
-                        shoppingList: success[index],
-                      );
-                    },
-                  ),
-              (failure) => const Text('erro'));
-        }
-        return const Text('erro');
-      },
-    );
+        },
+      );
+    }
   }
 
   @override

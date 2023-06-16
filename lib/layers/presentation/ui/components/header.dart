@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 import 'package:shoplanner/layers/presentation/ui/components/perfil_avatar.dart';
 
 class Header extends StatelessWidget {
@@ -11,7 +11,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double height = 80;
-    final authController = GetIt.I.get<AuthController>();
+    final authController = GetIt.I.get<SessionManager>();
 
     return SizedBox(
       height: height,

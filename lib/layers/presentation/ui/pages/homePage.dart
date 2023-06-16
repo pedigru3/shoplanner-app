@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 import 'package:shoplanner/layers/presentation/controllers/navigator_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/user_controller.dart';
 import 'package:shoplanner/layers/presentation/ui/components/perfil_avatar.dart';
@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final userController = GetIt.I.get<UserController>();
   final navigatorController = GetIt.I.get<NavigatorController>();
   final nameController = TextEditingController();
-  final authController = GetIt.I.get<AuthController>();
+  final sessionManager = GetIt.I.get<SessionManager>();
 
   late PageController pc;
 
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               UserAccountsDrawerHeader(
                   accountEmail: GestureDetector(
                     onTap: () async {
-                      authController.logOut().then(
+                      sessionManager.logOut().then(
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => const InitialPage(),
@@ -67,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: const Text('Sair'),
                   ),
-                  accountName: Text(authController.token.name),
+                  accountName: Text(sessionManager.token.name),
                   currentAccountPicture: PerfilAvatar(
-                    url: authController.token.avatarUrl,
+                    url: sessionManager.token.avatarUrl,
                   )),
             ],
           ),
@@ -78,11 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
           physics: const NeverScrollableScrollPhysics(),
           controller: pc,
           onPageChanged: (value) => navigatorController.selectIndex(value),
-          children: [
-            const MyShoppinglists(),
-            NewList(
-              id: navigatorController.shoppingListId,
-            ),
+          children: const [
+            MyShoppinglists(),
+            NewList(),
           ],
         ),
         bottomNavigationBar: CustomNavigationBar(

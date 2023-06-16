@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'customNavigationBarItem.dart';
 
 class CustomNavigationBar extends StatefulWidget {

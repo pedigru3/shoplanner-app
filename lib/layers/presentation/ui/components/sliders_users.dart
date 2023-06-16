@@ -7,7 +7,7 @@ import 'package:shoplanner/layers/presentation/ui/pages/homePage.dart';
 
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/errors/user_exception.dart';
-
+/*
 class SlidersUsers extends StatefulWidget {
   const SlidersUsers({super.key});
 
@@ -61,3 +61,4 @@ class _SlidersUsersState extends State<SlidersUsers> {
         : const Center(child: CircularProgressIndicator());
   }
 }
+*/

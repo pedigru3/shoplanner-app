@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get_it/get_it.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:shoplanner/layers/data/services/currency_ptbr_input_formatter.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_entity.dart';
-import 'package:shoplanner/layers/domain/errors/shopping_list_exception.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 import 'package:shoplanner/layers/presentation/controllers/shopping_list_controller.dart';
 import 'package:shoplanner/layers/presentation/ui/components/itemsLoading.dart';
 import 'package:shoplanner/layers/presentation/ui/components/sliders_items.dart';
@@ -16,8 +14,7 @@ import '../components/categories.dart';
 import '../components/header.dart';
 
 class NewList extends StatefulWidget {
-  const NewList({super.key, required this.id});
-  final String id;
+  const NewList({super.key});
 
   @override
   State<NewList> createState() => _NewListState();
@@ -25,17 +22,15 @@ class NewList extends StatefulWidget {
 
 class _NewListState extends State<NewList> {
   final shoppingListItemController = GetIt.I.get<ShoppingListItemController>();
-  final shoopingListController = GetIt.I.get<ShoppingListController>();
-  final authController = GetIt.I.get<AuthController>();
+  final shoppingListController = GetIt.I.get<ShoppingListController>();
+  final authController = GetIt.I.get<SessionManager>();
 
   final nameOfListController = TextEditingController();
-
-  ShoppingListEntity? currentShoppingList;
 
   @override
   void initState() {
     super.initState();
-    shoopingListController.addListener(_onShoppingListChange);
+    shoppingListController.addListener(_onShoppingListChange);
     shoppingListItemController.addListener(_onShoppingListChange);
   }
 
@@ -46,35 +41,24 @@ class _NewListState extends State<NewList> {
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
-      builder: (context, isKeyboardVisible) =>
-          FutureBuilder<Result<ShoppingListEntity, ShoppingListException>>(
-        future: shoopingListController.findById(widget.id),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final myLists = snapshot.data!;
-            nameOfListController.text = myLists.getOrNull()?.name ?? '';
-
-            return myLists.fold(
-              (mylist) {
-                return shopScreen(
-                    context: context,
-                    mylist: mylist,
-                    isKeyboardVisible: isKeyboardVisible);
-              },
-              (failure) => shopScreen(
-                  context: context, isKeyboardVisible: isKeyboardVisible),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return shopScreen(
-                context: context, isKeyboardVisible: isKeyboardVisible);
-          }
-          return Center(
-            child: shopScreen(
-                context: context, isKeyboardVisible: isKeyboardVisible),
-          );
-        },
-      ),
+      builder: (context, isKeyboardVisible) {
+        if (shoppingListItemController.currentShoppingList != null) {
+          nameOfListController.text =
+              shoppingListItemController.currentShoppingList!.name;
+          return shopScreen(
+              context: context,
+              mylist: shoppingListItemController.currentShoppingList,
+              isKeyboardVisible: isKeyboardVisible);
+        }
+        if (shoppingListItemController.error != null) {
+          return shopScreen(
+              context: context, isKeyboardVisible: isKeyboardVisible);
+        }
+        return Center(
+          child: shopScreen(
+              context: context, isKeyboardVisible: isKeyboardVisible),
+        );
+      },
     );
   }
 
@@ -155,7 +139,7 @@ class _NewListState extends State<NewList> {
                     ? TextField(
                         onEditingComplete: () async {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          await shoopingListController.update(
+                          await shoppingListController.updateShoppingList(
                               mylist.id, nameOfListController.text);
                         },
                         controller: nameOfListController,
@@ -198,7 +182,7 @@ class _NewListState extends State<NewList> {
 
   @override
   void dispose() {
-    shoopingListController.removeListener(_onShoppingListChange);
+    shoppingListController.removeListener(_onShoppingListChange);
     shoppingListItemController.removeListener(_onShoppingListChange);
     super.dispose();
   }

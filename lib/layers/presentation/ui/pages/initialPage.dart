@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/homePage.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/initialPage2.dart';
 
@@ -9,7 +9,7 @@ class InitialPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = GetIt.I.get<AuthController>();
+    final authController = GetIt.I.get<SessionManager>();
 
     return Scaffold(
       body: Center(

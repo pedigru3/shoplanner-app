@@ -63,7 +63,7 @@ class MyShoppinglists extends StatelessWidget {
                         if (textController.text != '') {
                           FocusManager.instance.primaryFocus?.unfocus();
                           await shoopingListController
-                              .create(textController.text);
+                              .createShoppingList(textController.text);
                         } else {
                           showDialog(
                             context: context,

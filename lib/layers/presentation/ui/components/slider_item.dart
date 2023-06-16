@@ -19,6 +19,8 @@ class SliderItem extends StatelessWidget {
     return Slidable(
       key: ValueKey(shoppingListItem.id),
       endActionPane: ActionPane(
+        dismissible:
+            DismissiblePane(onDismissed: () => onDismissed(shoppingListItem)),
         motion: const DrawerMotion(),
         children: [
           SlidableAction(

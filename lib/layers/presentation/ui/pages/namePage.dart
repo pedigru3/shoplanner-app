@@ -5,7 +5,7 @@ import 'package:shoplanner/layers/presentation/ui/pages/startPage.dart';
 
 import '../components/button.dart';
 
-class NamePage extends StatefulWidget {
+/* class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
 
   @override
@@ -96,3 +96,4 @@ class _NamePageState extends State<NamePage> {
     );
   }
 }
+*/

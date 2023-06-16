@@ -3,6 +3,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_entity.dart';
 import 'package:shoplanner/layers/presentation/controllers/navigator_controller.dart';
+import 'package:shoplanner/layers/presentation/controllers/shopping_list_controller.dart';
+import 'package:shoplanner/layers/presentation/controllers/shopping_list_item_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 
 class SliderShoppingList extends StatelessWidget {
   const SliderShoppingList({
@@ -17,6 +20,9 @@ class SliderShoppingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigatorController = GetIt.I.get<NavigatorController>();
+    final shoppingListItemController =
+        GetIt.I.get<ShoppingListItemController>();
+    final sessionManager = GetIt.I.get<SessionManager>();
 
     return Slidable(
       key: ValueKey(shoppingList.id),
@@ -35,13 +41,14 @@ class SliderShoppingList extends StatelessWidget {
         ],
       ),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           navigatorController.selectIndex(1);
           navigatorController.pc.animateToPage(
               navigatorController.selectedIndex,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeOut);
-          navigatorController.setShoppingListId(shoppingList.id);
+          sessionManager.setShoppingListId(shoppingList.id);
+          await shoppingListItemController.fetchCurrentShoppingList();
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),

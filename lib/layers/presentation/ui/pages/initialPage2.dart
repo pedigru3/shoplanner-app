@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shoplanner/layers/data/services/github_auth.dart';
 import 'package:shoplanner/layers/data/services/google_auth.dart';
-import 'package:shoplanner/layers/presentation/controllers/auth_controller.dart';
+import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 import 'package:shoplanner/layers/presentation/ui/components/button.dart';
 import 'package:shoplanner/layers/presentation/ui/pages/startPage.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -15,7 +15,7 @@ class InitialPage2 extends StatefulWidget {
 }
 
 class _InitialPage2State extends State<InitialPage2> {
-  final auth = GetIt.I.get<AuthController>();
+  final auth = GetIt.I.get<SessionManager>();
 
   @override
   void initState() {

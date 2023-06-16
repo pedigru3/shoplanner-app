@@ -34,6 +34,16 @@ class _AddNewItemState extends State<AddNewItem> {
   final qunatityController = TextEditingController();
   final nameController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    shoppingListItemsController.addListener(_onItemChange);
+  }
+
+  _onItemChange() {
+    setState(() {});
+  }
+
   handleClick() async {
     var result = await shoppingListItemsController.create(
       nameController.text,
@@ -99,7 +109,16 @@ class _AddNewItemState extends State<AddNewItem> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            shoppingListItemsController.isLoading
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.transparent,
+                    ),
+                  )
+                : const SizedBox(
+                    height: 20,
+                  ),
             Center(
               child: SizedBox(
                 height: 50,
@@ -114,5 +133,11 @@ class _AddNewItemState extends State<AddNewItem> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    shoppingListItemsController.removeListener(_onItemChange);
+    super.dispose();
   }
 }
