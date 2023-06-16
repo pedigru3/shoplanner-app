@@ -3,7 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shoplanner/layers/domain/entities/shopping_list_entity.dart';
 import 'package:shoplanner/layers/presentation/controllers/navigator_controller.dart';
-import 'package:shoplanner/layers/presentation/controllers/shopping_list_controller.dart';
 import 'package:shoplanner/layers/presentation/controllers/shopping_list_item_controller.dart';
 import 'package:shoplanner/layers/presentation/manageres/session_manager.dart';
 
@@ -32,6 +31,7 @@ class SliderShoppingList extends StatelessWidget {
           SlidableAction(
             onPressed: (context) {
               onDismissed(shoppingList);
+              shoppingListItemController.fetchCurrentShoppingList();
             },
             backgroundColor: Colors.transparent,
             foregroundColor: const Color(0xFFFE4A49),

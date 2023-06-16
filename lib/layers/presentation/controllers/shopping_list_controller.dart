@@ -17,6 +17,7 @@ class ShoppingListController extends ChangeNotifier {
 
   List<ShoppingListEntity> shoppingLists = [];
   ShoppingListException? error;
+  bool isLoading = false;
 
   Future<void> fetchAllShoppingLists() async {
     return await shoppingListUsecase.fetchAll().fold(
@@ -37,8 +38,18 @@ class ShoppingListController extends ChangeNotifier {
   }
 
   createShoppingList(String name) async {
-    shoppingListUsecase.create(name);
+    isLoading = true;
     notifyListeners();
+    final createdShoppingListResult = shoppingListUsecase.create(name);
+    ShoppingListEntity? createdShoppingList =
+        await createdShoppingListResult.getOrNull();
+    if (createdShoppingList != null) {
+      shoppingLists.insert(0, createdShoppingList);
+      isLoading = false;
+      notifyListeners();
+      return createdShoppingListResult;
+    }
+    return createdShoppingListResult;
   }
 
   deleteShoppingList(String id) async {
