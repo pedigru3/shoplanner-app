@@ -5,11 +5,14 @@ abstract class Entity {
 
   Entity({String? id, DateTime? createdAt}) {
     id == null || id.isEmpty ? this.id = _uuid.v1() : this.id = id;
-    createdAt == null
-        ? this.createdAt = DateTime.now()
-        : this.createdAt = createdAt;
+    createdAt == null ? _createdAt = DateTime.now() : _createdAt = createdAt;
   }
 
   String id = '';
-  DateTime createdAt = DateTime.now();
+  DateTime _createdAt = DateTime.now();
+
+  get createdAt {
+    DateTime formatedData = _createdAt.subtract(const Duration(hours: 3));
+    return formatedData;
+  }
 }
