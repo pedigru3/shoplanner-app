@@ -27,7 +27,8 @@ class SliderItem extends StatelessWidget {
             onPressed: (context) {
               onDismissed(shoppingListItem);
             },
-            backgroundColor: Colors.transparent,
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
+            backgroundColor: Colors.white,
             foregroundColor: const Color(0xFFFE4A49),
             icon: Icons.delete,
             label: 'Delete',

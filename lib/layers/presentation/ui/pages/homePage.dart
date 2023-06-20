@@ -74,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        backgroundColor: Colors.white,
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: pc,

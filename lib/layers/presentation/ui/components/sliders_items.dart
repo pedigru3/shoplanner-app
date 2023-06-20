@@ -53,7 +53,6 @@ class _SlidersItemsState extends State<SlidersItems> {
                   onDismissed: (item) async {
                     filteredList
                         .removeWhere((element) => element.id == item.id);
-                    setState(() {});
                     await shoppingListItemsController.delete(item.id);
                   },
                 );
