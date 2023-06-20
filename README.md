@@ -1,16 +1,13 @@
-# shoplanner
+# O que é o Shoplanner
 
-A new Flutter project.
+O Shoplanner é um aplicativo essencial para ajudar a economizar tempo e dinheiro em compras no supermercado. Com ele, o usuário terá sempre o controle dos preços dos itens que costuma comprar.
+
+O funcionamento do Shoplanner é simples e eficiente. Quando o usuário for ao supermercado, basta inserir manualmente os itens da sua lista de compras no aplicativo. Em seguida, o Shoplanner armazena essas informações, incluindo os preços dos produtos naquele momento.
+
+Quando ele fizer uma nova lista de compras no futuro, o Shoplanner irá comparar os preços dos itens presentes na lista atual com os preços anteriores registrados. Dessa forma, o aplicativo irá alertar se algum item está mais caro do que da última compra. Essa funcionalidade permite que o consumidor tome decisões mais informadas, escolhendo comprar um item em outro estabelecimento caso o preço esteja mais alto naquele em que ele está.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Esse é um projeto Flutter.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Para utilizar o login de google e GitHub, é preciso instalar o sdk.
