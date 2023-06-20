@@ -49,5 +49,6 @@ app.*.map.json
 # Keep environment variables out of version control
 *.env
 
-# Ignorar o arquivo google-services.json
+# Ignorar arquivos firebase
 android/app/google-services.json
+lib/firebase_options.dart
