@@ -27,7 +27,7 @@ class ItemEntity extends Entity {
       throw Exception("The 'createdAt' field is missing in the JSON.");
     }
     if (json['prices'] == null) {
-      throw Exception("The 'prices' field is missing in the JSON.");
+      json['prices'] = [];
     }
     return ItemEntity(
       id: json['id'],

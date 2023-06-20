@@ -91,6 +91,7 @@ class ShoppingListItemDataSourceRemote implements ShoppingListItemsDataSource {
       var result = mapjsonList.map<ItemEntity>((e) => ItemEntity.fromMap(e));
       return Success(result);
     } catch (e) {
+      print(e);
       return Failure(ShoppingListItemsDataSourceError('Error Data: $e'));
     }
   }
