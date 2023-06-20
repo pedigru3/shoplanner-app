@@ -18,6 +18,6 @@ Para utilizar o login pelo Google, certifique-se:
 - Instalar a CLI do Firebase e fazer login (execute firebase login)
 https://docs.flutter.dev/get-started/install
 
-E adicione o Firebase ao seu app Flutter:
+- Adicionar o Firebase ao seu app Flutter:
 https://firebase.google.com/docs/flutter/setup?hl=pt-br&platform=android
 
