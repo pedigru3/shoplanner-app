@@ -8,7 +8,7 @@ Quando ele fizer uma nova lista de compras no futuro, o Shoplanner irá comparar
 
 ## Getting Started
 
-Esse é um projeto Flutter. Antes de começar, certifique-se de ter instalado o SDK do Flutter:
+Antes de começar, certifique-se de ter instalado o SDK do Flutter:
 https://docs.flutter.dev/get-started/install
 
 Para logar pelog GitHub, é preciso criar um arquivo .env com a variável GITHUB_CLIENT_ID="seu_codigo_aqui"
@@ -18,5 +18,6 @@ Para utilizar o login pelo Google, certifique-se:
 - Instalar a CLI do Firebase e fazer login (execute firebase login)
 https://docs.flutter.dev/get-started/install
 
-
+E adicione o Firebase ao seu app Flutter:
+https://firebase.google.com/docs/flutter/setup?hl=pt-br&platform=android
 
