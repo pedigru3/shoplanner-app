@@ -34,7 +34,7 @@ class ShoppingListItemUseCaseImp extends ShoppingListItemUseCase {
   }
 
   @override
-  AsyncResult<bool, ShoppingListItemException> update(
+  AsyncResult<ShoppingListItemEntity, ShoppingListItemException> update(
       {required String id,
       (String name, Category category)? item,
       double? quantity,

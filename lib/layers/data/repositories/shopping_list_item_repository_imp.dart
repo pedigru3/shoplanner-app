@@ -33,7 +33,7 @@ class ShoppingListItemRepositoryImp implements ShoppingListItemRepository {
   }
 
   @override
-  AsyncResult<bool, ShoppingListItemException> update(
+  AsyncResult<ShoppingListItemEntity, ShoppingListItemException> update(
       {required String id,
       (String, Category)? item,
       double? quantity,

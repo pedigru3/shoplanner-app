@@ -46,14 +46,13 @@ class ShoppingListItemDataSourceRemote implements ShoppingListItemsDataSource {
   }
 
   @override
-  AsyncResult<bool, ShoppingListItemException> update(
+  AsyncResult<ShoppingListItemEntity, ShoppingListItemException> update(
       {required String id,
       (String name, Category category)? item,
       double? quantity,
       double? price}) async {
+    Map data = {};
     try {
-      Map data = {};
-
       if (item != null) {
         var (name, category) = item;
         data['item'] = {
@@ -70,12 +69,14 @@ class ShoppingListItemDataSourceRemote implements ShoppingListItemsDataSource {
         data['price'] = price;
       }
 
-      await http.put(
+      final result = await http.put(
         slugUrl: '/shopping-list-item/$id',
         body: data,
       );
 
-      return const Success(true);
+      final shoppingListItemEntity =
+          ShoppingListItemEntity.fromMap(json.decode(result));
+      return Success(shoppingListItemEntity);
     } catch (e) {
       return Failure(ShoppingListItemsDataSourceError('error: $e'));
     }

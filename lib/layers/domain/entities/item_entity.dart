@@ -14,7 +14,21 @@ class ItemEntity extends Entity {
   }
 
   factory ItemEntity.fromMap(Map<String, dynamic> json) {
-    if (json['prices'] == null) {}
+    if (json['id'] == null) {
+      throw Exception("The 'id' field is missing in the JSON.");
+    }
+    if (json['name'] == null) {
+      throw Exception("The 'name' field is missing in the JSON.");
+    }
+    if (json['category'] == null) {
+      throw Exception("The 'category' field is missing in the JSON.");
+    }
+    if (json['createdAt'] == null) {
+      throw Exception("The 'createdAt' field is missing in the JSON.");
+    }
+    if (json['prices'] == null) {
+      throw Exception("The 'prices' field is missing in the JSON.");
+    }
     return ItemEntity(
       id: json['id'],
       name: json['name'],

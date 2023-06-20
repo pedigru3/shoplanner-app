@@ -23,7 +23,7 @@ class ShoppingListItemController extends ChangeNotifier {
     fetchCurrentShoppingList();
   }
 
-  ShoppingListItemException? shoppingListItem;
+  ShoppingListItemException? shoppingListItemException;
   bool isLoading = false;
 
   ShoppingListEntity? currentShoppingList;
@@ -93,7 +93,7 @@ class ShoppingListItemController extends ChangeNotifier {
     return result;
   }
 
-  AsyncResult<bool, ShoppingListItemException> update({
+  AsyncResult<ShoppingListItemEntity, ShoppingListItemException> update({
     required String id,
     String? name,
     String? quantity,
@@ -105,14 +105,24 @@ class ShoppingListItemController extends ChangeNotifier {
       item = (name, category);
     }
 
-    var result = await shoppingListItemUsecase.update(
+    var shoppingListItemResult = await shoppingListItemUsecase.update(
       id: id,
       item: item,
       quantity: quantity != null ? TextFormatter.cleanText(quantity) : null,
       price: price != null ? TextFormatter.cleanText(price) : null,
     );
 
+    ShoppingListItemEntity? shoppingListItem =
+        shoppingListItemResult.getOrNull();
+
+    if (shoppingListItem != null) {
+      int index = currentShoppingList!.shoppingListItems
+          .indexWhere((element) => element.id == id);
+      currentShoppingList?.shoppingListItems
+          .replaceRange(index, index + 1, [shoppingListItem]);
+    }
+
     notifyListeners();
-    return result;
+    return shoppingListItemResult;
   }
 }
